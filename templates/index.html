@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>APP Jokes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link id="pagestyle" rel="stylesheet" href="static/style.css">
+    <script src="static/script.js"></script>  
+</head>
+
+<body>
+  <div class="Title">
+    <h1>Joke Generator</h1>
+  </div>
+
+  <div class="topBar">
+    <button class="button" id="newJoke" onclick="openNewJokeModal()">New Joke</button>
+    <button class="button" id="generateJoke" onclick="openGenerateJokeModal()">Generate Random Joke</button>
+    <div id="newModal" class="modal">
+      <div class="modalContentNew">
+        <button class="close" onclick="closeButton()">&times;</button>
+        <form class="newForm">
+          <input id="inputBoxQ" type="text" placeholder="Joke Question">
+          <input id="inputBoxP" type="text" placeholder="Joke Punchline">
+          <button type="button" class="submitBox" onclick="submitJokeButton()">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div id="generateModal" class="modal">
+      <div class="modalContentGenerate">
+      <button class="close" onclick="closeButton2()">&times;</button>
+      <button class="button" id="takeJokeFromData" onclick="getNewJoke()">Get a Random Joke</button>
+      </div>
+    </div>
+  </div>
+  
+  <ul id="data-output">
+
+  </ul>
+</body>
+</html>
