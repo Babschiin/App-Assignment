@@ -49,17 +49,28 @@ function submitJokeButton() {
     xmlhttprequest.open("PUT", "/submitJoke");
     xmlhttprequest.setRequestHeader("Content-Type", "application/json");
     xmlhttprequest.send(JSON.stringify(jokeDataArray));
-    setTimeout(() => { document.location.reload(); }, 400);
+    xmlhttprequest.onload = function () {
+      if (xmlhttprequest.status === 200) {
+        setTimeout(() => {
+          loadJokes();
+        }, 400);
+      }else {
+      console.error("Failed to submit joke")
+    }
+  };
 }
 
 //Sends a request for the delete joke
 function deleteJoke(jokeID) {
-    var xmlhttprequest = new XMLHttpRequest();
-    xmlhttprequest.open("POST", "/deleteJoke");
-    xmlhttprequest.setRequestHeader("Content-Type", "application/json");
-    xmlhttprequest.send(jokeID)
-    setTimeout(() => { document.location.reload(); }, 400);;
+  randomJokes = randomJokes.filter(joke => joke.jokeID !== jokeID);
+  var xmlhttprequest = new XMLHttpRequest();
+  xmlhttprequest.open("POST", "/deleteJoke");
+  xmlhttprequest.setRequestHeader("Content-Type", "application/json");
+  xmlhttprequest.send(jokeID)
+  setTimeout(() => { document.location.reload(); }, 400);
 }
+
+let randomJokes = []
 
 //Function for adding a new joke entry using New joke to the jokesFile
 function loadJokes() {
@@ -82,7 +93,16 @@ function loadJokes() {
             `;
         }
         htmlOutput.innerHTML = jokeList;
+    });
+
+    fetch("/generatejoke")
+    .then(function(response) {
+      return response.json();
     })
+    .then(function(randomJoke) {
+      randomJoke.push(randomJoke);
+      displayRandomJokes();
+    });
 }
 
 //Function for adding random joke entries using the jokeDatabase
