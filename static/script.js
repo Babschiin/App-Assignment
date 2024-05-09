@@ -1,29 +1,29 @@
-//Loads the jokes on when run
+// Loads the jokes on when run
 window.onload = function() {
     loadJokes();
   }
 
 
-//Opens modal when user clicks 'New Joke' button
+// Opens modal when user clicks 'New Joke' button
 function openNewJokeModal() {
     document.getElementById("newModal").style.display = 'block';
 }
 
-//Opens modal when user clicks 'Generate random joke' button
+// Opens modal when user clicks 'Generate random joke' button
 function openGenerateJokeModal() {
     document.getElementById("generateModal").style.display = 'block';
 }
 
-//When the user clicks on the x button, closes modal for the New joke modal box
+// When the user clicks on the x button, closes modal for the New joke modal box
 function closeButton() {
     document.getElementById("newModal").style.display = 'none';
 }
-//When the user clicks on the x button, closes modal for the Generate random joke box 
+// When the user clicks on the x button, closes modal for the Generate random joke box 
 function closeButton2() {
     document.getElementById("generateModal").style.display = 'none';
 }
 
-//Changes between the joke question and the joke's punchline
+// Changes between the joke question and the joke's punchline
 function revealJoke(jokeID, jokeSetup, jokePunchline) {
     let jokeElement = document.getElementById(jokeID);
     if (jokeElement.innerHTML === jokeSetup) {
@@ -35,7 +35,7 @@ function revealJoke(jokeID, jokeSetup, jokePunchline) {
     }
   }
 
-//For the New Joke form and submit button
+// For the New Joke form and submit button
 function submitJokeButton() {
     closeButton();
     jokeQuestionVar = document.getElementById("inputBoxQ").value;
@@ -60,7 +60,7 @@ function submitJokeButton() {
   };
 }
 
-//Sends a request for the delete joke
+// Sends a request for the delete joke
 function deleteJoke(jokeID) {
   randomJokes = randomJokes.filter(joke => joke.jokeID !== jokeID);
   var xmlhttprequest = new XMLHttpRequest();
@@ -72,7 +72,7 @@ function deleteJoke(jokeID) {
 
 let randomJokes = []
 
-//Function for adding a new joke entry using New joke to the jokesFile
+// Function for adding a new joke entry using New joke to the jokesFile
 function loadJokes() {
     fetch("/loadJokes")
     .then(function(response){
@@ -105,7 +105,8 @@ function loadJokes() {
     });
 }
 
-//Function for adding random joke entries using the jokeDatabase
+// Function for adding random joke entries using the jokeDatabase
+// This is the function (most likely causing the issues with the deletion of all items when delete is clicked)
 function getNewJoke() {
     fetch("/generateJoke")
       .then(function (response) {
